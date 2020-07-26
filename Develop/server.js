@@ -1,24 +1,31 @@
 // install and set up express
 const express = require('express');
+const logger = require('morgan');
+const mongoose = require('mongoose');
+
+const db = require('./models/workout');
 
 const app = express();
 
+
 const PORT = process.env.PORT || 3000;
 
+
+app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
-
 app.use(express.static("public"));
 
-app.get('/', (req, res) => {
-    res.render('index')
-})
+app.get("/", (req, res) => {
+  res.render('index')
+});
 
 app.listen(PORT, () => {
-    console.log(`server has started on port ${PORT}`);
+  console.log(`server has started on port ${PORT}`);
 })
 // serve the index page
 // -- create a get home route
+
 // -- create a get /api/workouts route
 // -- -- return and array of workout objs
 // -- -- the last should be the most recent
