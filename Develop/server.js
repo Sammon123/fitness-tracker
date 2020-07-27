@@ -2,8 +2,10 @@
 const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
-
+const { db } = require('./models/workout');
 const Workout = require('./models/workout');
+
+
 
 const app = express();
 
@@ -21,6 +23,16 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/workoutdb', { u
 app.get("/", (req, res) => {
   res.render('index')
 });
+
+app.get('/exercise', (req, res) => {
+  Workout.findOne({}, (err, data) => {
+    if (err) {
+      console.error(err)
+    } else {
+      res.send(data);
+    }
+  })
+})
 
 app.listen(PORT, () => {
   console.log(`server has started on port ${PORT}`);
