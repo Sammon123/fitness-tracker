@@ -1,11 +1,10 @@
-const Workouts = require('../models/workout');
 const Workout = require('../models/workout');
 const router = require('express').Router();
 
 
 // -- create a post /api/workouts route
 router.post('/api/workouts', (req, res) => {
-    Workouts.create({})
+    Workout.create({})
         .then(dbWorkout => {
             res.json(dbWorkout);
         })
@@ -28,10 +27,11 @@ router.get('/api/workouts', (req, res) => {
         })
 })
 // -- create a PUT endpoint for api/workouts/:id
-router.put('/api/workouts/:id', (req, res) => {
+router.put('/api/workouts/:id', ({ body, params }, res) => {
     Workout.findByIdAndUpdate(
         params.id,
-        { $push: { exercises: body } }
+        { $push: { exercises: body } },
+        { new: true, runValidators: true }
     )
         .then(dbWorkout => {
             res.json(dbWorkout)

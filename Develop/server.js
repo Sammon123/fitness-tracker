@@ -17,21 +17,8 @@ app.use(express.static("public"));
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/workoutdb', { useUnifiedTopology: true, useNewUrlParser: true });
 
-// app.get("/", (req, res) => {
-//   res.render('index')
-// });
-
-// app.get('/exercise', (req, res) => {
-//   Workout.findOne({}, (err, data) => {
-//     if (err) {
-//       console.error(err)
-//     } else {
-//       res.send(data);
-//     }
-//   })
-// })
-
 app.use(require('./routes/apiRoutes'))
+app.use(require('./routes/htmlRoutes'))
 
 app.listen(PORT, () => {
   console.log(`server has started on port ${PORT}`);
@@ -58,42 +45,3 @@ app.listen(PORT, () => {
 // -- 
 // total duration(updated w/ every new exercise)
 
-/*
-const workoutSchema = new Schema(
-  {
-    day: {
-      type: Date,
-      default: () => new Date()
-    },
-    exercises: [
-      {
-        type: {
-          type: String,
-          trim: true,
-          required: "Enter an exercise type"
-        },
-        name: {
-          type: String,
-          trim: true,
-          required: "Enter an exercise name"
-        },
-        duration: {
-          type: Number,
-          required: "Enter an exercise duration in minutes"
-        },
-        weight: {
-          type: Number
-        },
-        reps: {
-          type: Number
-        },
-        sets: {
-          type: Number
-        },
-        distance: {
-          type: Number
-        }
-      }
-    ]
-  }
-  */
