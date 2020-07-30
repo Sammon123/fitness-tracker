@@ -42,3 +42,18 @@ router.put('/api/workouts/:id', (req, res) => {
 })
 // -- -- should update whatever id they had
 /* use the mongo model to update stuff */
+
+// -- create a PUT endpoint for api/workouts/:id
+router.delete('api/workouts', ({ body }, res) => {
+    Workout.findOneAndDelete(body.id)
+        .then((dbWorkout) => {
+            res.json(true)
+        })
+        .catch((err) => {
+            res.status(400).json(err);
+        })
+})
+
+module.exports = router;
+
+
